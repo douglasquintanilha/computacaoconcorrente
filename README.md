@@ -1,2 +1,2 @@
-# computacaoconcorrrente
+# computacaoconcorrente
 Laboratórios de Computação Concorrente
