@@ -1,9 +1,8 @@
 /* Disciplina: Computacao Concorrente */
 /* Prof.: Silvana Rossetto */
+/* Aluno: Douglas Quintanilha Barbosa Ferreira */
+/* DRE: 112012763 /*
 /* Laboratório: 7 */
-/* Codigo: Uso de variáveis de condição e suas operações básicas para sincronização por condição */
-
-/***** Condicao logica da aplicacao: a thread B so pode imprimir "ByeBye" depois que duas threads A imprimirem  "Hello"  ****/
 
 #include <pthread.h>
 #include <stdio.h>
@@ -27,8 +26,7 @@ void *A (void *t) {
 
     pthread_mutex_lock(&x_mutex);
     x++;
-    printf("A:  x = %d, vai sinalizar a condicao \n", x);
-    pthread_cond_signal(&x_cond);
+    pthread_cond_broadcast(&x_cond);
     pthread_mutex_unlock(&x_mutex);
 
     pthread_exit(NULL);
@@ -44,8 +42,7 @@ void *B (void *t) {
 
     pthread_mutex_lock(&x_mutex);
     x++;
-    printf("B:  x = %d, vai sinalizar a condicao \n", x);
-    pthread_cond_signal(&x_cond);
+    pthread_cond_broadcast(&x_cond);
     pthread_mutex_unlock(&x_mutex);
 
     pthread_exit(NULL);
@@ -55,10 +52,8 @@ void *B (void *t) {
 void *C (void *t) {
 
     pthread_mutex_lock(&x_mutex);
-    if(x == 2 ){
-        printf("C: x= %d, vai se bloquear...\n", x);
+    while(x != 2){
         pthread_cond_wait(&x_cond, &x_mutex);
-        printf("C: sinal recebido e mutex realocado, x = %d\n", x);
     }
     printf("ate mais tarde\n");
     pthread_mutex_unlock(&x_mutex);
@@ -69,10 +64,8 @@ void *C (void *t) {
 void *D (void *t) {
 
     pthread_mutex_lock(&x_mutex);
-    if (x == 2) {
-        printf("D: x= %d, vai se bloquear...\n", x);
+    while(x != 2){
         pthread_cond_wait(&x_cond, &x_mutex);
-        printf("D: sinal recebido e mutex realocado, x = %d\n", x);
     }
     printf("tchau\n");
     pthread_mutex_unlock(&x_mutex);
@@ -99,7 +92,6 @@ int main(int argc, char *argv[]) {
     for (i = 0; i < NTHREADS; i++) {
     pthread_join(threads[i], NULL);
     }
-    printf ("\nFIM\n");
 
     /* Desaloca variaveis e termina */
     pthread_mutex_destroy(&x_mutex);
