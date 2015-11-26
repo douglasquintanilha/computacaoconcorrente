@@ -1,0 +1,19 @@
+Atividade 1
+===========
+2. Não, as vezes o programa imprimiu Hello após ter imprimido bye.
+3. O programa não termina por quê a thread A só envia o Signal pra destravar a thread B quando x==2,
+só que isso só ocorre quando a Thread  A é executada pelo menos 2 vezes.
+4. Sim.
+
+Atividade 2
+============
+2. Sim, o resultado foi sempre o esperado.
+
+Atividade 3
+===========
+2. Sim, o resultado foi sempre o esperado.
+3. Não, não podemos .
+4. Não, como utilizamos um IF, ele faz a verificação de x %10 apenas uma vez, no inicio do bloco. Como o valor de X pode ser alterado por outra thread , ele acaba imprimindo um valor errado. Com o While, a verificação é feita no final do bloco, o que garante que quando ele sai, ele está com o valor correto.
+
+
+
