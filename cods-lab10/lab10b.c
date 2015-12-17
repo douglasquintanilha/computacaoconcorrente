@@ -40,17 +40,33 @@ void* consumidor (void* arg){
 
 int main(int argc, char *argv[]) {
 	pthread_t threads[NTHREADS]; 
-	int t;
+	int i,j;
 	sem_init(&em, 0, 1);
 
 
     /* Cria as threads */
 
+	// Inicializa Threads Produtoras
+    for ( i = 0; i < PRODUTORES; ++i)
+    {
+    	pid = (int*) malloc(sizeof(int));
+    	*pid = i;
+		pthread_create(&threads[i],NULL, produtor,(void *) pid);
+    }
+
+    // Inicializa Threads Escritoras
+    for ( j = PRODUTORES; j < PRODUTORES + CONSUMIDORES; ++j)
+    {
+    	pid = (int*) malloc(sizeof(int));
+    	*pid = j;
+    	pthread_create(&threads[j],NULL, consumidor,(void *) pid);
+    }
+
 
 
 	//--espera todas as threads terminarem
-	for (t=0; t<NTHREADS; t++) {
-		if (pthread_join(threads[t], NULL)) {
+	for (i=0; i < PRODUTORES + CONSUMIDORES ; i++) {
+		if (pthread_join(threads[i], NULL)) {
 		    printf("--ERRO: pthread_join() \n"); exit(-1); 
 		} 
 	} 
