@@ -2,7 +2,7 @@
 /* Prof.: Silvana Rossetto */
 /* Aluno: Douglas Quintanilha Barbosa Ferreira */
 /* DRE: 112012763 */
-/* Laboratório: 8 */
+/* Laboratório: 9 */
 
 #include <pthread.h>
 #include <stdio.h>
@@ -110,7 +110,7 @@ int main(int argc, char *argv[]){
     }
 
     // Inicializa Threads Leitoras
-    for ( j = M; j < N; ++j)
+    for ( j = M; j < N + M; ++j)
     {
     	pid = (int*) malloc(sizeof(int));
     	*pid = j;
