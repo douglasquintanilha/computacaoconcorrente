@@ -6,15 +6,21 @@ public class Vetor {
 	ArrayList<Integer> vetorA;
 	ArrayList<Integer> vetorB;
 	
-	public Vetor(ArrayList<Integer> vetorA, ArrayList<Integer> vetorB){
+	int nthreads;
+	int resultado = 0;
+	
+	
+	public Vetor(ArrayList<Integer> vetorA, ArrayList<Integer> vetorB, int nthreads){
 		this.vetorA = vetorA;
 		this.vetorB = vetorB;
+		this.nthreads = nthreads; 
 	}
+	
+	
 	
 	@Override
 	public String toString() {
-		this.vetorA.toString();
-		return this.vetorA.toString();
+		return this.resultado + "";
 	}
 
 }

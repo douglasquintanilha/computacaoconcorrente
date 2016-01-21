@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class SomaVetor {
+	
 	private static final int N = 4;
 	static ArrayList<Integer> vetorA;
 	static ArrayList<Integer> vetorB;
@@ -30,14 +31,15 @@ public class SomaVetor {
 
 		Thread[] threads = new Thread[N];
 
-		Vetor v = new Vetor(vetorA, vetorB);
+		
 
 		vetorA = new ArrayList<Integer>(leArquivo("vetor.txt"));
 		vetorB = new ArrayList<Integer>(leArquivo("vetor.txt"));
+		Vetor v = new Vetor(vetorA, vetorB,N);
 		for (int i = 0; i < threads.length; i++) {
 			final String m = "Ola da thread " + i;
 			System.out.println(m);
-			threads[i] = new Thread(new T(i));
+			threads[i] = new Thread(new T(i,v));
 		}
 
 		for (int i = 0; i < threads.length; i++) {
@@ -47,7 +49,7 @@ public class SomaVetor {
 		for (int i = 0; i < threads.length; i++) {
 			threads[i].join();
 		}
-		System.out.println("Terminou");
+		System.out.println("Resultado = " + v.resultado);
 
 	}
 
